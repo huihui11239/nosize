@@ -1,0 +1,18 @@
+{
+  "fashion":{
+    "name":"时下流行",
+    "url":"index"
+  },
+  "list":{
+    "name":"歌单",
+    "url":"list"
+  },
+  "sort":{
+    "name":"排行榜",
+    "url":"sort"
+  },
+  "hot":{
+    "name":"热门歌手",
+    "url":"hot"
+  }
+}

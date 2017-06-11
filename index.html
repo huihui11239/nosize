@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>适配所有的终端</title>
+		<style type="text/css">
+			body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dd,dt{margin:0;padding:0;list-style:none}
+			a{text-decoration:none;}
+			.clearfix:after{
+				content:"";
+				display:none;
+				height:0;
+				font-size:0;
+				clear: both;
+			}
+			html{font-size:100px}
+			.wrap{
+				width:1000px;
+			}
+			.header{
+				width:100%;
+				text-align:center;
+				font-size:1rem;
+				background-color:orange
+			}
+			#nav{
+				height:1rem;
+				overflow:hidden;
+				display:-webkit-flex;
+				display:flex;
+				flex-flow:row nowrap;
+				justify-content: space-around;
+				line-height:1rem;
+				position:relative;
+			}
+			#nav div{
+				font-size:0.5rem;
+				float:left;
+				width:1rem
+			}
+			#line{
+				width:1rem;
+				height:0.1rem;
+				background-color:red;
+				position:absolute;
+
+				bottom:-1px;
+			}
+
+			.xu{width:96%;margin:0 auto;}
+			.xu h2{font-size:2rem;text-align:center;}
+			.xu  .xupic{ width:100%}
+			.xu .xupic img{width:100%}
+			.xu p{font-size:0.7rem;}
+
+
+		</style>
+
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="header">英雄榜</div>
+			<div id="nav">
+						
+			</div>
+			<div class="main">
+				
+			</div>
+		</div>
+		
+	</body>
+</html>
+
+		<script src="js/jquery-3.1.0.js"></script>
+		<script>
+
+		function loadModel(_selector,_url){
+			$(_selector).load(_url);
+		}
+
+			window.onresize=function(){
+				var clientHtml=document.getElementsByTagName("html")[0];
+				var clientWidth=document.documentElement.clientWidth;
+				console.log(clientWidth)
+				clientHtml.style.fontSize=(clientWidth/1000)*100+"px"			
+			}
+			
+			window.onload=function(){
+				
+				$.get("./data/119.json",null,function(data,datasatues){
+					if(datasatues=="success"){
+						$("<div id='line'></div>").appendTo("#nav")
+						for(var k=0 in data){
+							$("<div id='"+data[k].url+"'>"+data[k].name+"</div>").appendTo("#nav")
+						}
+
+						$("#nav div").not("#line").click(function(){
+							var index=$(this).index()-1
+							var navchildWidth=$(this).width()
+							console.log(navchildWidth)
+							$("#line").animate({
+								left:1.75*index*navchildWidth+"px"
+							},400)
+							loadModel(".main","temp/"+this.id+".html");
+						})
+					}
+				})
+			}
+			
+			
+		</script>
